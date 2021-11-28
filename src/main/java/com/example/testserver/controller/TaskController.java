@@ -99,7 +99,7 @@ public class TaskController {
                 file.transferTo(new File(path, filename));
             }
             taskService.add(new Task(uuid, abs, title, 0));
-            publishService.add(new Publish());
+//            publishService.add(new Publish());
             return ResultUtil.success("上传成功", uuid);
         }catch (Exception var3) {
             return ResultUtil.fail("400", var3.getMessage());
