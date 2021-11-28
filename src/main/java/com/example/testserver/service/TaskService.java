@@ -21,5 +21,5 @@ public class TaskService {
 
     public List<Task> getAllBystate(int state){ return taskDAO.findAllByState(state); }
 
-    public void add(Task task){taskDAO.save(task); }
+    public void add(Task task){taskDAO.saveAndFlush(task); }
 }

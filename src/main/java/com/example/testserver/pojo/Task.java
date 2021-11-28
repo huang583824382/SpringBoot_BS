@@ -20,6 +20,14 @@ public class Task {
     String title;
     @Column(name = "state")
     Integer state; //0 waiting, 1 doing, 2 reviewing, 3 done
+    public Task(){};
+    public Task(String imgsrc, String abs, String title, int state){
+        this.imgsrc=imgsrc;
+        this.abs=abs;
+        this.title=title;
+        this.state=state;
+    }
+
     public int getTaskid(){
         return taskid;
     }

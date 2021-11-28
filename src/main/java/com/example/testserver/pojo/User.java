@@ -12,7 +12,7 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "userid")
-    Integer userid;
+    int userid;
     @Column(name = "username")
     String username;
     @Column(name = "password")
@@ -21,6 +21,14 @@ public class User {
     String email;
     @Column(name = "type")
     Integer type;
+
+    public User(){}
+    public User(String username, String password, String email, int type){
+        this.username=username;
+        this.password=password;
+        this.email=email;
+        this.type=type;
+    }
 
     public int getUserid() {
         return userid;

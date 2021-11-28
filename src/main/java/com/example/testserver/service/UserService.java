@@ -15,9 +15,29 @@ public class UserService {
         return null!=user;
     }
 
+    public int isConflict(User user){
+        User t1=getByUsername(user.getUsername());
+        User t2=getByEmail(user.getEmail());
+        if(t2!=null){
+            return -1; //邮箱重复
+        }
+        else{
+            if(t1!=null){
+                return -2; //用户名重复
+            }
+            else{
+                return 1; //不重复
+            }
+        }
+    }
+
     public User getByUsername(String name){
         return userDAO.findByUsername(name);
     }
+    public User getByEmail(String email){
+        return userDAO.findByEmail(email);
+    }
+
 
     public User get(String name, String password){
         System.out.println(name+" "+password);
@@ -25,6 +45,6 @@ public class UserService {
     }
 
     public void add(User user){
-        userDAO.save(user);
+        userDAO.saveAndFlush(user);
     }
 }

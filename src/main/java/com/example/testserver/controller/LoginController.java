@@ -34,4 +34,26 @@ public class LoginController {
             return ResultUtil.success("success", "test");
         }
     }
+
+    @CrossOrigin
+    @PostMapping(value = "/api/register")
+    @ResponseBody
+    public ResultUtil register(@RequestBody User requestUser) {
+
+        int res = userService.isConflict(requestUser);
+
+        if (res==1) {
+            //无重复可以注册
+            System.out.println("注册成功");
+            userService.add(new User(requestUser.getUsername(), requestUser.getPassword(), requestUser.getEmail(), 0));
+            return ResultUtil.success("success", "注册成功");
+        } else if(res==-1){
+            System.out.println("重复邮箱："+requestUser.getEmail());
+            return ResultUtil.fail("400", "重复邮箱");
+        }
+        else{
+            System.out.println("重复名称："+requestUser.getUsername());
+            return ResultUtil.fail("400", "重复名称");
+        }
+    }
 }
