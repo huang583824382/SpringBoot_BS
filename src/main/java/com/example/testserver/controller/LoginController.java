@@ -9,6 +9,8 @@ import org.springframework.web.util.HtmlUtils;
 
 import com.example.testserver.pojo.User;
 
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 @Controller
@@ -20,17 +22,27 @@ public class LoginController {
     @CrossOrigin
     @PostMapping(value = "/api/login")
     @ResponseBody
-    public ResultUtil login(@RequestBody User requestUser, HttpSession session) {
+    public ResultUtil login(@RequestBody User requestUser, HttpSession session, HttpServletResponse response) {
         String username = requestUser.getUsername();
         username = HtmlUtils.htmlEscape(username);
-
+        System.out.println("Recv Login Request");
         User user = userService.get(username, requestUser.getPassword());
         if (null == user) {
             System.out.println("fail");
             return ResultUtil.fail("400", "test");
         } else {
             System.out.println("success");
-            session.setAttribute("user", user);
+//            session.setAttribute("user", user);
+
+            Cookie cookie_userid = new Cookie("cookie_userid", ""+user.getUserid());
+            Cookie cookie_username = new Cookie("cookie_username", ""+user.getUsername());
+            Cookie cookie_type = new Cookie("cookie_type", ""+user.getType());
+            cookie_userid.setPath("/");
+            cookie_username.setPath("/");
+            cookie_type.setPath("/");
+            response.addCookie(cookie_userid);
+            response.addCookie(cookie_username);
+            response.addCookie(cookie_type);
             return ResultUtil.success("success", "test");
         }
     }

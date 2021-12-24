@@ -2,11 +2,11 @@ package com.example.testserver.result;
 
 public class ResultUtil {
 
-    private String code;
+    public String code;
 
-    private String msg;
+    public String msg;
 
-    private Object data;
+    public Object data;
 
     public static ResultUtil success(Object data) {
         return resultData(CodeEnum.SUCCESS.val(), CodeEnum.SUCCESS.msg(), data);

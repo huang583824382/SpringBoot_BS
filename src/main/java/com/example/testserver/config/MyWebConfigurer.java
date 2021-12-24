@@ -21,9 +21,14 @@ public class MyWebConfigurer implements WebMvcConfigurer {
     }
     @Override
     public void addCorsMappings(CorsRegistry registry) {
+        String[] origins = {
+            "http://66.42.44.151:8080", "http://localhost:8080"
+        };
         //所有请求都允许跨域
         registry.addMapping("/**")
-                .allowedOrigins("*")
+                .allowCredentials(true)
+//                .allowedOrigins("http://localhost:8080")
+                .allowedOrigins(origins)
                 .allowedMethods("*")
                 .allowedHeaders("*");
 
@@ -32,6 +37,7 @@ public class MyWebConfigurer implements WebMvcConfigurer {
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         registry.addResourceHandler("/img/**").addResourceLocations("file:"+UPLOAD_FOLDER);
+        registry.addResourceHandler("/temp/**").addResourceLocations("file:"+UPLOAD_FOLDER+"tempFile/");
         WebMvcConfigurer.super.addResourceHandlers(registry);
     }
 
@@ -39,7 +45,7 @@ public class MyWebConfigurer implements WebMvcConfigurer {
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(getLoginInterceptor()).addPathPatterns("/**").excludePathPatterns("/index.html").excludePathPatterns("/login")
-                .excludePathPatterns("/img/**");
+                .excludePathPatterns("/img/**").excludePathPatterns("/temp/**");
     }
 //
 //    @Override

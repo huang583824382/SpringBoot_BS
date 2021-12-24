@@ -44,7 +44,7 @@ public class UserService {
         return userDAO.getByUsernameAndPassword(name, password);
     }
 
-    public void add(User user){
-        userDAO.saveAndFlush(user);
+    public int add(User user){
+        return userDAO.saveAndFlush(user).getUserid();
     }
 }

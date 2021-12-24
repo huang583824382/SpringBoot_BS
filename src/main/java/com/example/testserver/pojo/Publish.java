@@ -21,12 +21,14 @@ public class Publish {
     @Column(name = "date")
     Date date;
 
-    Publish(){}
+    public Publish(){}
     public Publish(int userid, int taskid){
         this.userid=userid;
         this.taskid=taskid;
         date=new Date();
     }
+
+
     public int getTaskid() {
         return taskid;
     }
